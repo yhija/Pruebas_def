@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="es">
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="zepto.min.js"></script>
+    <script type="text/javascript" src="touch.js"></script>
+    <title>Cronometro</title>
+    <script type="text/javascript">
+        $(function() {
+            var chrono = $("#crono"), t;
+
+            function anadir(){
+                chrono.html((+chrono.html()+ 0.1).toFixed(1));
+            }
+            function arrancar(){
+                t = setInterval(anadir,100);
+            }
+            function parar(){
+                clearInterval(t);
+                t = undefined;
+            }
+            function cambiar(){
+                if (!t){
+                    arrancar();
+                }
+                else{
+                    parar();
+                }
+            }
+
+            $('html').on('swipe', function() {chrono.html("0.0");}); //Inicializar numeros
+            $('html').on('tap', cambiar);  //Cambiar entre Empezar y parar
+        });
+    </script>
+</head>
+<body>
+    <h2>Cronometro</h2>
+    <h2><span id="crono">0.0</span> Segundos.</h2>
+</body>
+</html>
